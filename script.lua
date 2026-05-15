@@ -16,11 +16,11 @@ while true do
     local color = button.BackgroundColor3
 
     -------------------------------------------------
-    -- ENTRE WAVE 20 Y 45 = AUTO SKIP APAGADO
+    -- DESDE WAVE 20 HASTA 50 = AUTO SKIP APAGADO
     -------------------------------------------------
-    if wave >= 20 and wave <= 45 then
+    if wave >= 20 and wave <= 50 then
 
-        -- Si está prendido (verde), apagar
+        -- Si está prendido, apagarlo
         if color.G == 1 then
             for _,v in pairs(getconnections(button.Activated)) do
                 v:Fire()
@@ -30,16 +30,18 @@ while true do
         end
 
     -------------------------------------------------
-    -- ANTES DE 20 O DESPUÉS DE 45 = AUTO SKIP PRENDIDO
+    -- ANTES DE WAVE 20 = AUTO SKIP PRENDIDO
     -------------------------------------------------
     else
-        -- Si está apagado (rojo), prender
-        if color.R == 1 and color.G == 0 and color.B == 0 then
-            for _,v in pairs(getconnections(button.Activated)) do
-                v:Fire()
-            end
+        -- Solo se prende antes de la 20
+        if wave < 20 then
+            if color.R == 1 and color.G == 0 and color.B == 0 then
+                for _,v in pairs(getconnections(button.Activated)) do
+                    v:Fire()
+                end
 
-            task.wait(0.5)
+                task.wait(0.5)
+            end
         end
     end
 
